@@ -54,7 +54,7 @@ Ces formules sont avant tout destinées à des applications de navigation et ne 
 
 ### Addtionnal languages and contributors
 
-- **Additionnal programming language: GO / JS** / Python
+- **Additionnal programming language: GO / JS / Python**
 - Additionnal Authors and Contributors:
 	- [Valentin Minder](https://github.com/ValentinMinder)
 	- [Sacha Bron](https://github.com/BinaryBrain)
