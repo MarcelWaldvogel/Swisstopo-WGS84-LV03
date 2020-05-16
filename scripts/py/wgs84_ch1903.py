@@ -148,15 +148,34 @@ class GPSConverter(object):
 
 if __name__ == "__main__":
     '''Example usage for the GPSConverter class.'''
+    import sys
+
     converter = GPSConverter()
 
-    # Fixed coordinate example
-    wgs84 = (46.95108, 7.438637, 0)
+    if len(sys.argv) != 4:
+        # Fixed coordinate example
+        wgs84 = [46.95108, 7.438637, 0]
+    
+        # Convert WGS84 to LV03 coordinates
+        lv03 = converter.WGS84toLV03(*wgs84)
 
-    # Convert WGS84 to LV03 coordinates
-    lv03 = converter.WGS84toLV03(*wgs84)
-
-    print("WGS84: ")
-    print(wgs84)
-    print("LV03: ")
-    print(lv03)
+        print("WGS84: ")
+        print(wgs84)
+        print("LV03: ")
+        print(lv03)
+    else:
+        # Convert a coordinate given on the command line
+        # in one of the following formats to WGS84 or LV03:
+        coords = tuple(map(float, sys.argv[1:]))
+        if coords[0] < 90:
+            # - WGS84: lat lon h
+            print(converter.WGS84toLV03(*coords))
+        elif coords[0] < 1000000:
+            # - LV03: e n h
+            print(converter.LV03toWGS84(*coords))
+        else:
+            # - LV95: e n h
+            # LV95->LV03 conversion adds up to 1.6 m of additional error
+            print(converter.LV03toWGS84(coords[0] - 2000000,
+                                        coords[1] - 1000000,
+                                        coords[2]))
