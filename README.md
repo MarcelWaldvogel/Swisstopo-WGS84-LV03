@@ -52,16 +52,16 @@ Ces formules sont avant tout destinées à des applications de navigation et ne 
 - Remarks:	Comments in English, No support
 - Copyright (c) 2014 Federal Office of Topography swisstopo, Wabern, CH
 
-### Addtionnal languages and contributors
+### Addtional languages and contributors
 
-- **Additionnal programming language: GO / JS**
-- Additionnal Authors and Contributors:
+- **Additional programming language: GO / JS**
+- Additional Authors and Contributors:
 	- [Valentin Minder] (https://github.com/ValentinMinder)
 	- [Sacha Bron](https://github.com/BinaryBrain)
 	- [Basile Vu](https://github.com/Flagoul)
 	- [Michael Monay](https://github.com/micmonay)
 
-**Feel free to add some piece of code or additionnal language and do a pull request**. To make it easy:
+**Feel free to add some piece of code or additional language and do a pull request**. To make it easy:
 
 - insert the same MIT licence as swisstopo at the start of your file
 - add your name in your file, preferably after the swisstopo copyright in the MIT license
