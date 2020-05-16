@@ -40,23 +40,41 @@
 # https://www.swisstopo.admin.ch/en/maps-data-online/calculation-services/navref.html
 # (difference ~ 1-2m)
 
-import math
-
 
 class GPSConverter(object):
     '''
     GPS Converter class which is able to perform convertions between the 
     CH1903 and WGS84 system.
     '''
-    def CHtoWGSheight(self, y, x, h):
+    def clipDegree(self, d, clip):
+        """
+        Round Lat, Lon coordinates given in degrees (WGS84) to about
+        a meter and avoid giving a false sense of precision
+        """
+        if clip:
+            return round(d, 5)
+        else:
+            return d
+
+    def clipMeter(self, m, clip):
+        """
+        Round E, N, H coordinates given in meters (LV95, LV03) to the next
+        meter and avoid giving a false sense of precision
+        """
+        if clip:
+            return round(m)
+        else:
+            return m
+
+    def CHtoWGSheight(self, y, x, h, clip=False):
         """Convert CH y/x/h to WGS height"""
         # Auxiliary values (% Bern)
         y_aux = (y-600000) / 1000000
         x_aux = (x-200000) / 1000000
         h = h + 49.55 - 12.60*y_aux - 22.64*x_aux
-        return h
+        return self.clipMeter(h, clip)
 
-    def CHtoWGSlat(self, y, x):
+    def CHtoWGSlat(self, y, x, clip=False):
         """Convert CH y/x to WGS lat"""
         # Auxiliary values (% Bern)
         y_aux = (y-600000) / 1000000
@@ -69,9 +87,9 @@ class GPSConverter(object):
                - 0.0140   * x_aux**3)
         # Unit 10000" to 1" and convert seconds to degrees (dec)
         lat = lat * 10000 / 3600
-        return lat
+        return self.clipDegree(lat, clip)
 
-    def CHtoWGSlng(self, y, x):
+    def CHtoWGSlng(self, y, x, clip=False):
         """Convert CH y/x to WGS long"""
         # Auxiliary values (% Bern)
         y_aux = (y-600000) / 1000000
@@ -83,9 +101,9 @@ class GPSConverter(object):
                - 0.0436   * y_aux**3)
         # Unit 10000" to 1" and convert seconds to degrees (dec)
         lng = lng * 10000 / 3600
-        return lng
+        return self.clipDegree(lng, clip)
 
-    def WGStoCHh(self, lat, lng, h):
+    def WGStoCHh(self, lat, lng, h, clip=False):
         """Convert WGS lat/long (° dec) and height to CH h"""
         # Decimal degrees to seconds
         lat = lat * 3600
@@ -94,9 +112,9 @@ class GPSConverter(object):
         lat_aux = (lat-169028.66) / 10000
         lng_aux = (lng-26782.5) / 10000
         h = h - 49.55 + 2.73*lng_aux + 6.94*lat_aux
-        return h
+        return self.clipMeter(h, clip)
 
-    def WGStoCHx(self, lat, lng):
+    def WGStoCHx(self, lat, lng, clip=False):
         """Convert WGS lat/long (° dec) to CH x"""
         # Decimal degrees to seconds
         lat = lat * 3600
@@ -110,9 +128,9 @@ class GPSConverter(object):
              +     76.63 * lat_aux**2
              -    194.56 * lng_aux**2 * lat_aux
              +    119.79 * lat_aux**3)
-        return x
+        return self.clipMeter(x, clip)
 
-    def WGStoCHy(self, lat, lng):
+    def WGStoCHy(self, lat, lng, clip=False):
         """Convert WGS lat/long (° dec) to CH y"""
         # Decimal degrees to seconds
         lat = lat * 3600
@@ -125,25 +143,25 @@ class GPSConverter(object):
              -  10938.51 * lng_aux * lat_aux
              -      0.36 * lng_aux * lat_aux**2
              -     44.54 * lng_aux**3)
-        return y
+        return self.clipMeter(y, clip)
 
-    def LV03toWGS84(self, east, north, height):
+    def LV03toWGS84(self, east, north, height, clip=False):
         '''
         Convert LV03 to WGS84. Return a tuple of floating point numbers
         containing lat, long, and height
         '''
-        return (self.CHtoWGSlat(east, north),
-                self.CHtoWGSlng(east, north),
-                self.CHtoWGSheight(east, north, height))
+        return (self.CHtoWGSlat(east, north, clip),
+                self.CHtoWGSlng(east, north, clip),
+                self.CHtoWGSheight(east, north, height, clip))
         
-    def WGS84toLV03(self, latitude, longitude, ellHeight):
+    def WGS84toLV03(self, latitude, longitude, ellHeight, clip=False):
         '''
         Convert WGS84 to LV03. Return a tuple of floating point numbers
         containing east, north, and height
         '''
-        return (self.WGStoCHy(latitude, longitude),
-                self.WGStoCHx(latitude, longitude),
-                self.WGStoCHh(latitude, longitude, ellHeight))
+        return (self.WGStoCHy(latitude, longitude, clip),
+                self.WGStoCHx(latitude, longitude, clip),
+                self.WGStoCHh(latitude, longitude, ellHeight, clip))
 
 
 if __name__ == "__main__":
@@ -157,7 +175,7 @@ if __name__ == "__main__":
         wgs84 = [46.95108, 7.438637, 0]
     
         # Convert WGS84 to LV03 coordinates
-        lv03 = converter.WGS84toLV03(*wgs84)
+        lv03 = converter.WGS84toLV03(*wgs84, clip=True)
 
         print("WGS84: ")
         print(wgs84)
@@ -169,13 +187,13 @@ if __name__ == "__main__":
         coords = tuple(map(float, sys.argv[1:]))
         if coords[0] < 90:
             # - WGS84: lat lon h
-            print(converter.WGS84toLV03(*coords))
+            print(converter.WGS84toLV03(*coords, clip=True))
         elif coords[0] < 1000000:
             # - LV03: e n h
-            print(converter.LV03toWGS84(*coords))
+            print(converter.LV03toWGS84(*coords, clip=True))
         else:
             # - LV95: e n h
             # LV95->LV03 conversion adds up to 1.6 m of additional error
             print(converter.LV03toWGS84(coords[0] - 2000000,
                                         coords[1] - 1000000,
-                                        coords[2]))
+                                        coords[2], clip=True))
