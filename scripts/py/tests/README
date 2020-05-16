@@ -1,0 +1,16 @@
+# Test files
+
+* `wgs84.csv` contains points in or near Switzerland in a half-degree grid.
+* `lv03.csv` was created from `wgs84.csv` using
+  [REFRAME](https://www.swisstopo.admin.ch/de/karten-daten-online/calculation-services/reframe.html),
+  converting from global WGS84 coordinates in decimal degrees and WRS80 heights
+  to LV03 coordinates and LN02 heights
+* `lv95.csv` was created from `wgs84.csv` using REFRAME, converting from global
+  WGS84 coordinates in decimal degrees and WRS80 heights to LV95 coordinates
+  and LHN95 heights
+
+# Tests
+
+The tests verify that WGS84→LV03, LV03→WGS84, LV95→WGS84 have at most a ~2 m
+error (2 m in rounded coordinates/heights or 0.00002° in rounded
+latitude/longitudes, which is also approximately 2 m)
