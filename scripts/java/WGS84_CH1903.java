@@ -23,9 +23,9 @@ public class ApproxSwissProj {
 	//  THE SOFTWARE.
 	// 
  
-	// Source: http://www.swisstopo.admin.ch/internet/swisstopo/en/home/topics/survey/sys/refsys/projections.html (see PDFs under "Documentation")
+	// Source: https://www.swisstopo.admin.ch/en/knowledge-facts/surveying-geodesy/reference-systems/map-projections.html (see PDFs under "Documentation")
 	// Updated 9 dec 2014
-	// Please validate your results with NAVREF on-line service: http://www.swisstopo.admin.ch/internet/swisstopo/en/home/apps/calc/navref.html (difference ~ 1-2m)
+	// Please validate your results with NAVREF on-line service: https://www.swisstopo.admin.ch/en/maps-data-online/calculation-services/navref.html (difference ~ 1-2m)
 
 	// Convert CH y/x/h to WGS height
 	private static double CHtoWGSheight(double y, double x, double h) {
