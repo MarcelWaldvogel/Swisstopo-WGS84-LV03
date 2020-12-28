@@ -54,12 +54,13 @@ Ces formules sont avant tout destinées à des applications de navigation et ne 
 
 ### Addtional languages and contributors
 
-- **Additional programming language: GO / JS**
+- **Additional programming language: GO / JS / Python**
 - Additional Authors and Contributors:
 	- [Valentin Minder](https://github.com/ValentinMinder)
 	- [Sacha Bron](https://github.com/BinaryBrain)
 	- [Basile Vu](https://github.com/Flagoul)
 	- [Michael Monay](https://github.com/micmonay)
+	- [Aaron Schmocker](https://github.com/id101010)
 
 **Feel free to add some piece of code or additional language and do a pull request**. To make it easy:
 
