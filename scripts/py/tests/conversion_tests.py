@@ -29,25 +29,25 @@ from wgs84_ch1903 import GPSConverter
 
 # Maximum allowed difference: About 2m
 def deg_close(a, b):
-    return abs(a-b) < 2 * 10**-5
+    return abs(a - b) < 2 * 10 ** -5
 
 
 def m_close(a, b):
-    return abs(a-b) < 2
+    return abs(a - b) < 2
 
 
 def match_deg(a, b):
     if deg_close(a[0], b[0]) and deg_close(a[1], b[1]) and m_close(a[2], b[2]):
-      return None
+        return None
     else:
-      return AssertionError("(%f, %f, %f) too far off (%f, %f, %f)" % (*a, *b))
+        return AssertionError("(%f, %f, %f) too far off (%f, %f, %f)" % (*a, *b))
 
 
 def match_m(a, b):
     if m_close(a[0], b[0]) and m_close(a[1], b[1]) and m_close(a[2], b[2]):
-      return None
+        return None
     else:
-      return AssertionError("(%f, %f, %f) too far off (%f, %f, %f)" % (*a, *b))
+        return AssertionError("(%f, %f, %f) too far off (%f, %f, %f)" % (*a, *b))
 
 
 def read_csv(fn):
