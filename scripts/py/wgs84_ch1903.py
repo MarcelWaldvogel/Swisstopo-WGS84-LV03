@@ -3,7 +3,7 @@
 
 # The MIT License (MIT)
 #
-# Copyright (c) 2014 Federal Office of Topography swisstopo, Wabern, CH and Aaron Schmocker 
+# Copyright (c) 2014 Federal Office of Topography swisstopo, Wabern, CH and Aaron Schmocker
 # Copyright (c) 2020 Marcel Waldvogel
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -43,7 +43,7 @@
 
 class GPSConverter(object):
     '''
-    GPS Converter class which is able to perform convertions between the 
+    GPS Converter class which is able to perform convertions between the
     CH1903 and WGS84 system.
     '''
     def clipDegree(self, d, clip):
@@ -153,7 +153,7 @@ class GPSConverter(object):
         return (self.CHtoWGSlat(east, north, clip),
                 self.CHtoWGSlng(east, north, clip),
                 self.CHtoWGSheight(east, north, height, clip))
-        
+
     def WGS84toLV03(self, latitude, longitude, ellHeight, clip=False):
         '''
         Convert WGS84 to LV03. Return a tuple of floating point numbers
@@ -173,7 +173,7 @@ if __name__ == "__main__":
     if len(sys.argv) != 4:
         # Fixed coordinate example
         wgs84 = [46.95108, 7.438637, 0]
-    
+
         # Convert WGS84 to LV03 coordinates
         lv03 = converter.WGS84toLV03(*wgs84, clip=True)
 
