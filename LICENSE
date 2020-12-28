@@ -20,6 +20,6 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-Source (no longer available there): http://www.swisstopo.admin.ch/internet/swisstopo/en/home/topics/survey/sys/refsys/projections.html (was under PDFs under "Documentation")
+Source: https://www.swisstopo.admin.ch/en/knowledge-facts/surveying-geodesy/reference-systems/map-projections.html (see PDFs under "Documentation")
 Updated 9 dec 2014
-Please validate your results with NAVREF on-line service: https://www.swisstopo.admin.ch/de/karten-daten-online/calculation-services/navref.html (difference ~ 1-2m)
+Please validate your results with NAVREF on-line service: https://www.swisstopo.admin.ch/en/maps-data-online/calculation-services/navref.html (difference ~ 1-2m)

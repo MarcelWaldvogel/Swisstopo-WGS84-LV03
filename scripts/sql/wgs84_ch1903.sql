@@ -23,11 +23,11 @@ as
 --   THE SOFTWARE.
 --
 
--- Source: http://www.swisstopo.admin.ch/internet/swisstopo/en/home/topics/survey/sys/refsys/projections.html (see PDFs under "Documentation")
+-- Source: https://www.swisstopo.admin.ch/en/knowledge-facts/surveying-geodesy/reference-systems/map-projections.htmll (see PDFs under "Documentation")
 -- Updated 9 dec 2014
 -- translated from python to oracle from Joerg Schmidt (Rola AG)
 -- tested on Oracle 11.2.3.0
--- Please validate your results with NAVREF on-line service: http://www.swisstopo.admin.ch/internet/swisstopo/en/home/apps/calc/navref.html (difference ~ 1-2m)
+-- Please validate your results with NAVREF on-line service: https://www.swisstopo.admin.ch/en/maps-data-online/calculation-services/navref.html (difference ~ 1-2m)
    function WGStoCHy(lat in out float, lng in out float) return float;
    function WGStoCHx(lat in out float, lng in out float) return float;
    function CHtoWGSlat(y float, x float) return float;
